@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>For My Favorite Person ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #160b10;
+            --card: #251018;
+            --red: #e52e63;
+            --burgundy: #6d102d;
+            --pink: #ffb7cf;
+            --white: #fff5f8;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            color: var(--white);
+            background:
+                radial-gradient(circle at top, #4d1028, transparent 50%),
+                var(--bg);
+            overflow-x: hidden;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 420px;
+            padding: 32px 23px;
+            border-radius: 28px;
+            background: linear-gradient(145deg, #321320, #1d0b12);
+            border: 1px solid #8f294b;
+            box-shadow: 0 0 35px #e52e6320;
+            text-align: center;
+        }
+
+        .emoji {
+            font-size: 65px;
+            margin-bottom: 18px;
+            animation: heartbeat 1.3s infinite alternate;
+        }
+
+        @keyframes heartbeat {
+            to {
+                transform: scale(1.08);
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #ff6f9d;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        p {
+            color: #f1cbd7;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        button {
+            display: inline-block;
+            border: none;
+            padding: 14px 22px;
+            margin: 6px 3px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ff477f, #c8174d);
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px #e52e6350;
+        }
+
+        .no {
+            background: #381825;
+            border: 1px solid #b65a78;
+            color: #ffc1d4;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 14px;
+            border: 1px solid #a33c5d;
+            background: #160b10;
+            color: white;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        input::placeholder {
+            color: #bd94a2;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .small {
+            font-size: 12px;
+            color: #bd94a2;
+        }
+
+        .progress {
+            width: 100%;
+            height: 9px;
+            background: #481a2c;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 22px;
+        }
+
+        #bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff477f, #ffb1ca);
+            transition: width .35s;
+            border-radius: 20px;
+        }
+
+        #number {
+            color: #ff8fb2;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        #question {
+            font-size: 26px;
+        }
+
+        #feedback {
+            min-height: 25px;
+            color: #ff8fb2;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        #answers {
+            margin-top: 15px;
+        }
+
+        #answers button {
+            min-width: 110px;
+        }
+
+        #result h1 {
+            font-size: 30px;
+        }
+
+        .final-note {
+            border: 1px solid #793047;
+            background: #1b0c13;
+            padding: 18px;
+            border-radius: 18px;
+            margin: 15px 0;
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -40px;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp 7s linear forwards;
+        }
+
+        @keyframes floatUp {
+            to {
+                transform: translateY(-115vh) rotate(35deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .card {
+                padding: 25px 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            #question {
+                font-size: 23px;
+            }
+
+            button {
+                padding: 12px 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <!-- 1. PASSWORD SCREEN -->
+        <section id="login">
+            <div class="emoji">🔐</div>
+            <h1>Secret Love Quiz</h1>
+
+            <p>
+                A little surprise is waiting for you...
+                <br>Only for someone special ❤️
+            </p>
+
+            <input type="password" id="password" placeholder="Enter your secret password" autocomplete="off">
+
+            <button onclick="unlock()">Unlock My Surprise 💌</button>
+
+            <p id="error" style="color:#ff8fb2;"></p>
+
+            <div class="small">Made with love ❤️</div>
+        </section>
+
+
+        <!-- 2. WELCOME SCREEN -->
+        <section id="start" class="hidden">
+            <div class="emoji">💌</div>
+
+            <h1>Hey My Favorite Person!</h1>
+
+            <p>
+                I made a little something for you.
+                <br>Ready for a cute love quiz? 🥹
+                <br>Let's see your answers!
+            </p>
+
+            <button onclick="begin()">Let's Play ❤️</button>
+
+            <p class="small">A little quiz, a lot of love ✨</p>
+        </section>
+
+
+        <!-- 3. QUIZ SCREEN -->
+        <section id="quiz" class="hidden">
+
+            <div class="progress">
+                <div id="bar"></div>
+            </div>
+
+            <div class="emoji" id="icon">💗</div>
+
+            <p id="number">Question 1 of 20</p>
+
+            <h1 id="question">Do you love me?</h1>
+
+            <p id="sub">Be honest 🙈</p>
+
+            <div id="answers">
+                <button onclick="answer('yes')">Yes 💖</button>
+                <button class="no" onclick="answer('no')">No 🙈</button>
+            </div>
+
+            <p id="feedback"></p>
+        </section>
+
+
+        <!-- 4. FINAL RESULT -->
+        <section id="result" class="hidden">
+
+            <div class="emoji">💝</div>
+
+            <h1>Quiz Complete!</h1>
+
+            <p id="resultText"></p>
+
+            <div class="final-note">
+                <h1 style="font-size:24px;">A Little Note For You ❤️</h1>
+
+                <p style="margin:0;">
+                    Thank you for being a part of my little world.
+                    I hope we keep sharing smiles, kindness
+                    and beautiful memories together. 💌
+                </p>
+            </div>
+
+            <div class="emoji">🌹</div>
+
+            <p>Sending you a little happiness ✨</p>
+
+            <button onclick="restart()">Play Again 🔁</button>
+        </section>
+
+    </div>
+
+    <script>
+
+        // CUSTOM PASSWORD
+        // Change this to your chosen password
+        const PASSWORD = "21042010";
+
+        // 20 LOVE QUIZ QUESTIONS
+        const questions = [
+            {
+                q: "Do you love me?",
+                sub: "Sach sach batana ❤️",
+                icon: "💗"
+            },
+            {
+                q: "Do I make you smile?",
+                sub: "Jab meri yaad aati hai? 🥹",
+                icon: "😊"
+            },
+            {
+                q: "Do you miss talking to me?",
+                sub: "Even our silly talks? 💌",
+                icon: "💬"
+            },
+            {
+                q: "Am I special to you?",
+                sub: "Kitni special? 🙈",
+                icon: "🧸"
+            },
+            {
+                q: "Do you like my voice?",
+                sub: "Sach bolna hehe ❤️",
+                icon: "🎧"
+            },
+            {
+                q: "Do my messages make your day better?",
+                sub: "Even my random texts? 💕",
+                icon: "📩"
+            },
+            {
+                q: "Do you enjoy our late night talks?",
+                sub: "Those little moments 🌙",
+                icon: "🌙"
+            },
+            {
+                q: "What's your favorite thing about us?",
+                sub: "Our bond or our talks? 💗",
+                icon: "🫶"
+            },
+            {
+                q: "Would you make more memories with me?",
+                sub: "Cute memories together ✨",
+                icon: "📸"
+            },
+            {
+                q: "Do you feel comfortable talking to me?",
+                sub: "You can always be yourself 💌",
+                icon: "🤍"
+            },
+            {
+                q: "Do you like when I care about you?",
+                sub: "Thori si extra care? 🥹",
+                icon: "🌷"
+            },
+            {
+                q: "Would you listen to my silly stories?",
+                sub: "Even the unnecessary ones? 😂",
+                icon: "🎀"
+            },
+            {
+                q: "Do you think we make a cute team?",
+                sub: "You and me 💕",
+                icon: "💑"
+            },
+            {
+                q: "Would you celebrate little moments with me?",
+                sub: "Small things mean a lot 💝",
+                icon: "🎂"
+            },
+            {
+                q: "Do you like our cute nicknames?",
+                sub: "Hehe don't lie 🙈",
+                icon: "💌"
+            },
+            {
+                q: "Would you support my dreams?",
+                sub: "And let me support yours too? ✨",
+                icon: "🌟"
+            },
+            {
+                q: "Can we always be honest with each other?",
+                sub: "Trust matters the most 🤍",
+                icon: "🕊️"
+            },
+            {
+                q: "Would you like a cute surprise from me?",
+                sub: "Like this little quiz? 🎁",
+                icon: "🎁"
+            },
+            {
+                q: "Can I ask you one last cute question?",
+                sub: "Ready? 👀",
+                icon: "💗"
+            },
+            {
+                q: "Will you keep making beautiful memories with me?",
+                sub: "One little moment at a time ❤️",
+                icon: "💍"
+            }
+        ];
+
+        let current = 0;
+        let yesCount = 0;
+        let answered = false;
+
+        // SCREEN SWITCHER
+        function show(id) {
+            ["login", "start", "quiz", "result"].forEach(
+                section => {
+                    document.getElementById(section)
+                        .classList.add("hidden");
+                }
+            );
+
+            document.getElementById(id)
+                .classList.remove("hidden");
+        }
+
+        // PASSWORD
+        function unlock() {
+            const value = document.getElementById("password").value;
+
+            if (value === PASSWORD) {
+                document.getElementById("error").textContent = "";
+                show("start");
+            } else {
+                document.getElementById("error").textContent =
+                    "Oops! Wrong password 🙈 Try again.";
+            }
+        }
+
+        document.getElementById("password")
+            .addEventListener("keydown", function (e) {
+                if (e.key === "Enter") unlock();
+            });
+
+        // START QUIZ
+        function begin() {
+            current = 0;
+            yesCount = 0;
+            show("quiz");
+            loadQuestion();
+        }
+
+        // LOAD QUESTION
+        function loadQuestion() {
+            answered = false;
+
+            const q = questions[current];
+
+            document.getElementById("icon").textContent = q.icon;
+
+            document.getElementById("number").textContent =
+                `Question ${current + 1} of ${questions.length}`;
+
+            document.getElementById("question").textContent = q.q;
+            document.getElementById("sub").textContent = q.sub;
+            document.getElementById("feedback").textContent = "";
+
+            document.getElementById("bar").style.width =
+                (current / questions.length * 100) + "%";
+
+            document.getElementById("answers").innerHTML = `
+    <button onclick="answer('yes')">Yes 💖</button>
+    <button class="no" onclick="answer('no')">No 🙈</button>
+  `;
+        }
+
+        // ANSWER
+       
+                function answer(choice) {
+                        if (answered) return;
+
+                        if (choice === "no") {
+                            noCount++;
+
+                            const feedback = document.getElementById("feedback");
+
+                            if (noCount === 1) {
+                                feedback.textContent =
+                                    "Hehe 🙈 No? Ek baar aur soch lo ❤️ Yes ya No?";
+
+                                document.getElementById("answers").innerHTML = `
+        <button onclick="answer('yes')">Yes 💖</button>
+        <button class="no" onclick="answer('no')">No 🙈</button>
+      `;
+
+                            } else {
+                                feedback.textContent =
+                                    "Oho 😂 No again! Koi baat nahi, tumhari choice ❤️";
+
+                                document.getElementById("answers").innerHTML = `
+        <button onclick="next()">Continue ➜ 💌</button>
+      `;
+                            }
+
+                            return;
+                        }
+
+                        answered = true;
+                        yesCount++;
+
+                        document.getElementById("feedback").textContent =
+                            "Awww that's so sweet 🥹❤️";
+
+                        document.getElementById("answers").innerHTML = `
+    <button onclick="next()">Next ➜ 💌</button>
+  `;
+                    }
+
+            function answerAgain() {
+                answered = false;
+
+                document.getElementById("feedback").textContent =
+                    "Your choice 💌";
+
+                document.getElementById("answers").innerHTML = `
+    <button onclick="answer('yes')">Yes 💖</button>
+    <button class="no" onclick="answer('no')">No 🙈</button>
+  `;
+            }
+        
+
+        // NEXT QUESTION
+        function next() {
+            current++;
+
+            if (current < questions.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // FINISH QUIZ
+        function finishQuiz() {
+            document.getElementById("bar").style.width = "100%";
+
+            show("result");
+
+            document.getElementById("resultText").textContent =
+                yesCount === questions.length
+                    ? "My favorite person said yes to everything! 💗 You made my little heart happy. 🥹"
+                    : `You said yes to ${yesCount} out of ${questions.length} questions! Thank you for playing and sharing your answers with me. ❤️`;
+        }
+
+        // PLAY AGAIN
+        function restart() {
+            show("start");
+        }
+
+        // FLOATING HEART ANIMATION
+        setInterval(() => {
+            const heart = document.createElement("span");
+
+            heart.className = "heart";
+
+            heart.textContent =
+                ["❤️", "💕", "💗", "💖", "🌹"][
+                Math.floor(Math.random() * 5)
+                ];
+
+            heart.style.left = Math.random() * 95 + "vw";
+
+            heart.style.fontSize =
+                (18 + Math.random() * 20) + "px";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 7000);
+        }, 700);
+
+    </script>
+</body>
+
+</html>
